@@ -4,5 +4,6 @@ const { validateUser, validateJwt } = require('../middleware');
 
 route.post('/', validateUser, userController.createUser);
 route.get('/', validateJwt, userController.getAllUsers);
+route.get('/:id', validateJwt, userController.getUser);
 
 module.exports = route;
