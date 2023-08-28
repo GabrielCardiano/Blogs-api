@@ -4,6 +4,6 @@ const secret = process.env.JWT_SECRET || 'secretJWT';
 const jwtConfig = { algorithm: 'HS256', expiresIn: '3d' };
 
 const createToken = (payload) => jwt.sign(payload, secret, jwtConfig);
-const getPayload = (token) => jwt.verify(token, secret);
+const decodeToken = (authToken) => jwt.verify(authToken, secret);
 
-module.exports = { createToken, getPayload };
+module.exports = { createToken, decodeToken };
