@@ -6,7 +6,7 @@ const getUserByEmail = (email) => User.findOne({ where: { email } });
 
 const getUserById = (id) => User.findOne({ where: { id } });
 
-const createUser = async (body) => User.create(body);
+const createUser = (body) => User.create(body);
 
 module.exports = {
   getAllUsers,

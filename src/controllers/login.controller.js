@@ -1,5 +1,5 @@
 const { createToken } = require('../auth/authfunctions');
-const userService = require('../services');
+const { userService } = require('../services');
 
 const isBodyValid = (userEmail, password) => userEmail && password;
 
