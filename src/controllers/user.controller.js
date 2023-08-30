@@ -4,13 +4,11 @@ const { userService } = require('../services');
 async function createUser(req, res) {
   try {
     const { body } = req;
-
     // verifica o email da requisição já existe no DB
     const isUser = await userService.getUserByEmail(body.email);
     if (isUser) {
       return res.status(409).json({ message: 'User already registered' });
     }
-
     // caminho feliz - requisição atende a todos os requisitos
     const user = await userService.createUser(body); // id e password
     const { password: _password, ...userWithoutPassword } = user.dataValues;
@@ -21,7 +19,6 @@ async function createUser(req, res) {
     return res.status(500).json({ message: 'Erro interno', error: err.message });
   }
 }
-
 async function getAllUsers(req, res) {
   try {
     const allUsers = await userService.getAllUsers();
@@ -34,7 +31,6 @@ async function getAllUsers(req, res) {
     return res.status(500).json({ message: 'Erro interno', error: err.message });
   }
 }
-
 async function getUser(req, res) {
   try {
     const { id } = req.params;
@@ -49,21 +45,14 @@ async function getUser(req, res) {
     return res.status(500).json({ message: 'Erro interno', error: err.message });
   }
 }
-
 async function deleteUser(req, res) {
- try {
-  //  console.log('body>>>', req.body.payload.data);
-  const { id } = req.body.payload.data;
-  await userService.deleteUser(id);
-  return res.status(204).end();
- } catch (err) {
-  return res.status(500).json({ message: 'Erro interno', error: err.message });
- }
+  try {
+    //  console.log('body>>>', req.body.payload.data);
+    const { id } = req.body.payload.data;
+    await userService.deleteUser(id);
+    return res.status(204).end();
+  } catch (err) {
+    return res.status(500).json({ message: 'Erro interno', error: err.message });
+  }
 }
-
-module.exports = {
-  createUser,
-  getAllUsers,
-  getUser,
-  deleteUser,
-};
+module.exports = { createUser, getAllUsers, getUser, deleteUser };
