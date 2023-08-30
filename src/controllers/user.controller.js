@@ -50,8 +50,20 @@ async function getUser(req, res) {
   }
 }
 
+async function deleteUser(req, res) {
+ try {
+  //  console.log('body>>>', req.body.payload.data);
+  const { id } = req.body.payload.data;
+  await userService.deleteUser(id);
+  return res.status(204).end();
+ } catch (err) {
+  return res.status(500).json({ message: 'Erro interno', error: err.message });
+ }
+}
+
 module.exports = {
   createUser,
   getAllUsers,
   getUser,
+  deleteUser,
 };
