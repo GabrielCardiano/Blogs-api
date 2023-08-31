@@ -11,7 +11,7 @@ async function Login(req, res) {
       return res.status(400).json({ message: 'Some required fields are missing' });
     }
 
-    const user = await userService.getUserByEmail(email); // criar função no Service
+    const user = await userService.getUserByEmail(email);
     if (!user || user.password !== password) {
       return res.status(400).json({ message: 'Invalid fields' });
     }

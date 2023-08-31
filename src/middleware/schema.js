@@ -25,7 +25,28 @@ const categoriesSchema = Joi.object({
   }),
 });
 
+const requiredField = '400|Some required fields are missing';
+
+const postSchema = Joi.object({
+  title: Joi.string().required().messages({
+    'any.required': requiredField,
+    'string.empty': requiredField,
+  }),
+  content: Joi.string().required().messages({
+    'any.required': requiredField,
+    'string.empty': requiredField,
+  }),
+  categoryIds: Joi.array().items(Joi.number()).min(1).required()
+.messages({
+    'any.required': requiredField,
+    'array.empty': '400|one or more "categoryIds" not found',
+    'array.min': '400|one or more "categoryIds" not found',
+    'array.base': '400|"categoryIds" must be an array',
+  }),
+});
+
 module.exports = {
   userSchema,
   categoriesSchema,
+  postSchema,
 };

@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     tableName: 'posts_categories',
     underscored: true,
-    timestamps: true,
+    timestamps: false,
   });
 
   PostCategory.associate = (models) => {
