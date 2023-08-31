@@ -20,6 +20,9 @@ const createPost = async (body) => {
     return createBlogPost;
 };
 
+const getAllPosts = (request) => BlogPost.findAll(request);
+
 module.exports = {
     createPost,
+    getAllPosts,
 };
