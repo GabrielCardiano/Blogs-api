@@ -33,7 +33,23 @@ async function getAllPosts(_req, res) {
 }
 }
 
+async function getPostById(req, res) {
+  try {
+const { id } = req.params;
+  const postById = await postService.getPostById(id, {
+    include: [
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
+});
+  return res.status(200).json(postById);
+  } catch (err) {
+  return res.status(500).json({ message: 'Erro interno', error: err.message });    
+  }
+}
+
 module.exports = {
   createPost,
   getAllPosts,
+  getPostById,
 };

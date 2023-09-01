@@ -22,7 +22,10 @@ const createPost = async (body) => {
 
 const getAllPosts = (request) => BlogPost.findAll(request);
 
+const getPostById = (id, request) => BlogPost.findByPk(id, request);
+
 module.exports = {
     createPost,
     getAllPosts,
+    getPostById,
 };
