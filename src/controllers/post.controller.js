@@ -54,9 +54,4 @@ async function updatePost(req, res) {
   }
 }
 
-module.exports = {
-  createPost,
-  getAllPosts,
-  getPostById,
-  updatePost,
-};
+module.exports = { createPost, getAllPosts, getPostById, updatePost };
