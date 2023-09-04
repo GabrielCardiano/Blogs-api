@@ -49,7 +49,8 @@ async function deletePost(req, res) {
   try {
     const { id } = req.params;
     const userId = req.body.payload.data.id;
-    await validatePostDelete(id, userId);
+    const isValid = await validatePostDelete(id, userId);
+    if (isValid) { return res.status(isValid.status).json(isValid.data); }
     await postService.deletePost(id);
     return res.status(204).end();
   } catch (err) {
