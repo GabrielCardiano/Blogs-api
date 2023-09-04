@@ -1,8 +1,7 @@
-const { validateBlogPostCategories } = require('../middleware');
+const { validateBlogPostCategories, validatePostDelete } = require('../middleware');
 const { postService } = require('../services');
 
 const error = 'Erro interno';
-
 async function createPost(req, res) {
   try {
     const { body } = req;
@@ -29,9 +28,7 @@ async function getPostById(req, res) {
   try {
     const { id } = req.params;
     const postById = await postService.getPostById(id);
-    if (!postById) {
-      return res.status(404).json({ message: 'Post does not exist' });
-    }
+    if (!postById) return res.status(404).json({ message: 'Post does not exist' });
     return res.status(200).json(postById);
   } catch (err) {
     return res.status(500).json({ message: error, error: err.message });
@@ -52,17 +49,7 @@ async function deletePost(req, res) {
   try {
     const { id } = req.params;
     const userId = req.body.payload.data.id;
-
-    const post = await postService.getPostById(id);
-    console.log('post>>>', post);
-    if (!post) {
-      return res.status(404).json({ message: 'Post does not exist' });
-    }
-
-    if (post.userId !== userId) {
-      return res.status(401).json({ message: 'Unauthorized user' });
-    }
-
+    await validatePostDelete(id, userId);
     await postService.deletePost(id);
     return res.status(204).end();
   } catch (err) {
