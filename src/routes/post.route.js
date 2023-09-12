@@ -8,5 +8,6 @@ route.get('/', validateJwt, postController.getAllPosts);
 route.get('/:id', validateJwt, postController.getPostById);
 route.put('/:id', validateJwt, postController.updatePost);
 route.delete('/:id', validateJwt, postController.deletePost);
+route.get('/search', validateJwt, postController.searchPost);
 
 module.exports = route;
